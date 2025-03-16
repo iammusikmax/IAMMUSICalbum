@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAMMUSIC</title>
+    <link rel="stylesheet" href="CaRTI.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    
+    
+    <audio id="bg-music" loop>
+        <source id="audio-source" src="POP OUT.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+    <div id="track-name" class="track-name"></div>
+    <div class="button-container">
+        <button id="prevTrack" class="prev-track"><img src="Nazad.png" alt="Назад"></button>
+        <button id="playPauseBtn" class="play-pause"><img src="GO.png" alt="Играть/Пауза"></button>
+        <button id="nextTrack" class="next-track"><img src="vpered.png" alt="Вперёд"></button>
+        <div class="volume-container">
+            <button id="volumeBtn" class="volume-button"><img src="zvuc.png" alt="Звук"></button>
+            <div class="volume-slider-container">
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+            </div>
+        </div>
+        
+        <button id="toggleRepeat" class="repeat-button"><img src="repitOFF.png" alt="Повтор"></button>
+    </div>
+    <div class="top-image-container">
+        <img src="IAMMUSIC.png" alt="Статичное изображение" class="top-image">
+    </div>
+    <div class="image-container">
+        <img src="CD-1.webp" alt="Крутящаяся фотография" class="rotating-photo">
+        <img src="DISK2.png" alt="Крутящаяся фотография" class="rotating-photo">
+        <img src="DISK.png" alt="Крутящаяся фотография" class="rotating-photo">
+        <img src="DISK3.jpg" alt="Крутящаяся фотография" class="rotating-photo">
+        <img src="DISK4.jpg" alt="Крутящаяся фотография" class="rotating-photo">
+    </div>
+    <div class="progress-container">
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress-bar" min="0" value="0" step="0.1">
+        <span id="total-time">0:00</span>
+    </div>
+
+    
+    <script>
+        const tracks = [
+            "POP OUT.mp3", "CRUSH.mp3", "K POP.mp3", "EVILJ0RDAN.mp3", "MOJO JOJO.mp3",
+            "PHILLY.mp3", "RADAR.mp3", "RATHER LIE.mp3", "FINE SHIT.mp3", "BACKD00R.mp3",
+            "TOXIC.mp3", "MUNYUN.mp3", "CRANK.mp3", "CHARGE DEM HOES A FEE.mp3", "GOOD CREDIT.mp3",
+            "I SEEEEEE YOU BABY BOI.mp3", "WAKE UP F1LTHY.mp3", "JUMPIN.mp3", "TRIM.mp3",
+            "COCAINE NOSE.mp3", "WE NEED ALL DA VIBES.mp3", "OLYMPIAN.mp3", "OPM BABI.mp3",
+            "TWIN TRIM.mp3", "LIKE WEEZY.mp3", "DIS 1 GOT IT.mp3", "WALK.mp3", "HBA.mp3",
+            "OVERLY.mp3", "SOUTH ATLANTA BABY.mp3"
+        ];
+        
+        let currentTrackIndex = 0;
+        let autoPlayEnabled = true;
+        let repeatMode = false; 
+        let shuffleMode = false;
+
+        const audio = document.getElementById("bg-music");
+        const source = document.getElementById("audio-source");
+        const playPauseBtn = document.getElementById("playPauseBtn");
+        const prevTrackBtn = document.getElementById("prevTrack");
+        const nextTrackBtn = document.getElementById("nextTrack");
+        const toggleRepeatBtn = document.getElementById("toggleRepeat");
+        const toggleShuffleBtn = document.getElementById("toggleShuffle");
+        const disks = document.querySelectorAll(".rotating-photo");
+        const trackName = document.getElementById("track-name");
+        const progressBar = document.getElementById("progress-bar");
+        const currentTimeDisplay = document.getElementById("current-time");
+     const totalTimeDisplay = document.getElementById("total-time");
+
+        
+        function updateTrackName() {
+            trackName.textContent = tracks[currentTrackIndex].replace(".mp3", "");
+        }
+        
+        
+        function loadTrack(index) {
+            currentTrackIndex = index;
+            audio.pause();
+            source.src = tracks[currentTrackIndex];
+            audio.load();
+            audio.play();
+            playPauseBtn.innerHTML = '<img src="paysepng.png" alt="Пауза">';
+            disks.forEach(disk => disk.style.animationPlayState = "running");
+            updateTrackName();
+        }
+        
+        trackName.style.visibility = "hidden"; // Скрываем название при загрузке
+        prevTrackBtn.addEventListener("click", () => {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIndex);
+        });
+        
+        nextTrackBtn.addEventListener("click", () => {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(currentTrackIndex);
+        });
+
+        
+        
+        playPauseBtn.addEventListener("click", () => {
+    if (audio.paused) {
+        if (audio.currentTime === 0) {
+            updateTrackName(); 
+            trackName.style.visibility = "visible"; // Показываем название при первом нажатии Play
+        }
+        audio.play();
+        playPauseBtn.innerHTML = '<img src="paysepng.png" alt="Пауза">';
+        disks.forEach(disk => disk.style.animationPlayState = "running");
+    } else {
+        audio.pause();
+        playPauseBtn.innerHTML = '<img src="Play.png" alt="Играть">';
+        disks.forEach(disk => disk.style.animationPlayState = "paused");
+    }
+});
+        
+    
+        audio.loop = false;
+        toggleRepeatBtn.addEventListener("click", () => {
+            repeatMode = !repeatMode;
+
+            if (repeatMode) {
+                toggleRepeatBtn.innerHTML = '<img src="repit.png" alt="Повтор включен">';
+                audio.loop = true;
+            } else {
+                toggleRepeatBtn.innerHTML = '<img src="repitOFF.png" alt="Повтор выключен">';
+                audio.loop = false;
+            }
+        });
+
+        audio.addEventListener("ended", () => {
+            if (!repeatMode && autoPlayEnabled) {
+                loadTrack((currentTrackIndex + 1) % tracks.length);
+            }
+        });
+        const volumeSlider = document.getElementById("volumeSlider");
+const volumeBtn = document.getElementById("volumeBtn");
+
+volumeSlider.addEventListener("input", () => {
+    audio.volume = volumeSlider.value;
+});
+function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    function updateProgressBar() {
+        progressBar.value = (audio.currentTime / audio.duration) * 100 || 0;
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        totalTimeDisplay.textContent = formatTime(audio.duration);
+    }
+
+    progressBar.addEventListener("input", () => {
+        audio.currentTime = (progressBar.value / 100) * audio.duration;
+    });
+
+    audio.addEventListener("timeupdate", updateProgressBar);
+
+    updateTrackName();
+    </script>
+</body>
+</html>
+
+    updateTrackName();
+</script>
+
