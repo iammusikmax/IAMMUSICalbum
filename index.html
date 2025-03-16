@@ -7,10 +7,221 @@
     <link rel="stylesheet" href="CaRTI.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    
 </head>
 
 <body>
+    <style>
+      body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000000;
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    position: relative;
+    width: 100%;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.rotating-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    animation: spin 3s linear infinite;
+    animation-play-state: paused;
+    position: relative;
+    left: 70px; /* Смещаем всё содержимое блока правее */
+    align-items: center;
+    justify-content: center;
     
+}
+
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.track-name {
+    text-align: center;
+    font-size: 22px;
+    color: white;
+    margin-bottom: 30px;
+    position: absolute;
+    top: 78%; /* Опустил чуть ниже */
+    left: 50.2%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    font-family: "Bodoni MT Poster Compressed", serif;
+    letter-spacing: 1px;
+    
+}
+
+
+.button-container {
+    position: absolute;
+    bottom: 100px;
+    left: 52.45%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-container button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.button-container img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Ползунок громкости */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 5px;
+    background: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Стиль для бегунка */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 25%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Контейнер громкости */
+.volume-container {
+    position: relative;
+    display: inline-block;
+}
+
+.volume-slider-container {
+    display: none;
+    position: absolute;
+    bottom: 43px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.volume-container:hover .volume-slider-container {
+    display: block;
+}
+.top-image-container {
+    position: absolute;
+    top: 0;
+    left: 50.5%;
+    transform: translateX(-50%);
+    width: 100;
+    text-align: center;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: center;
+    
+}
+    
+@media screen and (max-width: 1280px) { 
+    div.contentblock { width: 1200px !important; }
+}
+
+@media screen and (max-width: 992px) { 
+    div.contentblock { width: 970px !important; }
+}
+.volume-container {
+    position: absolute;
+    left: -15%; /* Сместит кнопку громкости левее */
+    transform: translateX(-50%);
+}
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 80%;
+    margin: 20px auto;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 5px;
+    appearance: none;
+    background: #444;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#progress-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#current-time, #total-time {
+    color: white;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+}
+#progress-bar {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+html, body {
+    touch-action: pan-x pan-y;
+}
+  
+    </style>
     
     <audio id="bg-music" loop>
         <source id="audio-source" src="POP OUT.mp3" type="audio/mpeg">
@@ -48,6 +259,9 @@
 
     
     <script>
+
+
+
         const tracks = [
             "POP OUT.mp3", "CRUSH.mp3", "K POP.mp3", "EVILJ0RDAN.mp3", "MOJO JOJO.mp3",
             "PHILLY.mp3", "RADAR.mp3", "RATHER LIE.mp3", "FINE SHIT.mp3", "BACKD00R.mp3",
@@ -170,6 +384,8 @@ function formatTime(seconds) {
 </body>
 </html>
 
+    updateTrackName();
+</script>
     updateTrackName();
 </script>
 
