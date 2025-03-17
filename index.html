@@ -64,11 +64,13 @@
     margin-bottom: 30px;
     position: absolute;
     top: 78%; /* Опустил чуть ниже */
-    left: 50.2%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     font-family: "Bodoni MT Poster Compressed", serif;
     letter-spacing: 1px;
+    align-items: center;
+    justify-content: center;
     
 }
 
@@ -76,10 +78,12 @@
 .button-container {
     position: absolute;
     bottom: 100px;
-    left: 52.45%;
+    left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 20px;
+    align-items: center;
+    justify-content: center;
     align-items: center;
     justify-content: center;
 }
@@ -90,6 +94,7 @@
     background-color: transparent;
     color: white;
     cursor: pointer;
+    
 }
 
 .button-container img {
@@ -148,13 +153,14 @@ input[type="range"]::-moz-range-thumb {
 .top-image-container {
     position: absolute;
     top: 0;
-    left: 50.5%;
+    left: 50%;
     transform: translateX(-50%);
     width: 100;
     text-align: center;
     padding-top: 10px;
     align-items: center;
     justify-content: center;
+    
     
 }
     
@@ -177,6 +183,8 @@ input[type="range"]::-moz-range-thumb {
     gap: 10px;
     width: 80%;
     margin: 20px auto;
+    align-items: center;
+    justify-content: center;
 }
 
 #progress-bar {
@@ -186,6 +194,8 @@ input[type="range"]::-moz-range-thumb {
     background: #444;
     border-radius: 5px;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 #progress-bar::-webkit-slider-thumb {
@@ -195,12 +205,15 @@ input[type="range"]::-moz-range-thumb {
     background: white;
     border-radius: 50%;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 #current-time, #total-time {
     color: white;
     font-size: 14px;
     font-family: Arial, sans-serif;
+    
 }
 .progress-container {
     display: flex;
@@ -211,6 +224,8 @@ input[type="range"]::-moz-range-thumb {
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
+    align-items: center;
+    justify-content: center;
 }
 #progress-bar {
     flex-grow: 1;
@@ -243,6 +258,7 @@ html, body {
     </div>
     <div class="top-image-container">
         <img src="IAMMUSIC.png" alt="Статичное изображение" class="top-image">
+        <img src=""IAMMUSIC.png" style="width: 200px; height: 150px;">
     </div>
     <div class="image-container">
         <img src="CD-1.webp" alt="Крутящаяся фотография" class="rotating-photo">
